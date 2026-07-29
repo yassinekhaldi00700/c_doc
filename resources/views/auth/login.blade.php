@@ -1,6 +1,6 @@
 <x-guest-layout title="Sign in">
     <div class="mb-4">
-        <p class="text-uppercase small fw-semibold mb-1" style="color:#44A66D; letter-spacing:.15em;">Candidate &amp; Staff Access</p>
+        <p class="text-uppercase small fw-semibold mb-1" style="color:#44A66D; letter-spacing:.15em;">Candidate login</p>
         <h2 class="fw-bold mb-2">Sign in to continue</h2>
         <p class="text-muted">Access your doctoral application dashboard and manage your academic documents securely.</p>
     </div>

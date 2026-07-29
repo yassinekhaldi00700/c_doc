@@ -59,13 +59,6 @@
         <x-text-input id="keywords" name="keywords" value="{{ old('keywords', $subject?->keywords) }}" placeholder="e.g. machine learning, NLP, data science" />
         <x-input-error :messages="$errors->get('keywords')" />
     </div>
-
-    <div class="col-12">
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="is_open" name="is_open" value="1" @checked(old('is_open', $subject?->is_open ?? true))>
-            <label class="form-check-label" for="is_open">Open for applications</label>
-        </div>
-    </div>
 </div>
 
 <div class="d-flex justify-content-end gap-2 mt-4">

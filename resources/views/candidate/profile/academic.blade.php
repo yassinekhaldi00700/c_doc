@@ -42,7 +42,7 @@
                             </span>
                             <span class="flex-grow-1">
                                 <span class="fw-bold d-block mb-1">Master</span>
-                                <span class="small text-muted">License / Bachelor's degree is required as your prior qualification.</span>
+                                <span class="small text-muted">Licence / Bachelor's degree is required as your prior qualification.</span>
                             </span>
                             <i class="bi bi-check-circle-fill degree-track-check"></i>
                         </label>
@@ -55,7 +55,7 @@
                             </span>
                             <span class="flex-grow-1">
                                 <span class="fw-bold d-block mb-1">Engineering Degree</span>
-                                <span class="small text-muted">License / Bachelor's degree is optional for this track.</span>
+                                <span class="small text-muted">Licence / Bachelor's degree is optional for this track.</span>
                             </span>
                             <i class="bi bi-check-circle-fill degree-track-check"></i>
                         </label>
@@ -113,7 +113,7 @@
 
         <div class="card border-0 shadow-sm mb-4">
             <div class="card-header bg-white">
-                <h3 class="h6 fw-bold mb-0"><i class="bi bi-mortarboard me-2 text-primary"></i>License / Bachelor's Degree</h3>
+                <h3 class="h6 fw-bold mb-0"><i class="bi bi-mortarboard me-2 text-primary"></i>Licence / Bachelor's Degree</h3>
                 <p class="small text-muted mb-0">Required if your track is Master, optional if your track is Engineering Degree.</p>
             </div>
             <div class="card-body">
@@ -145,7 +145,7 @@
                                 <x-profile-document-chip :document="$document" />
                             @endforeach
                         @endif
-                        <x-file-input name="license_certificate" label="License / Bachelor Certificate" :required="$track === 'master'" :max-size-mb="10"
+                        <x-file-input name="license_certificate" label="Licence / Bachelor Certificate" :required="$track === 'master'" :max-size-mb="10"
                             data-required-for-track="master"
                             hint="Required for the Master track, optional for the Engineering Degree track." />
                     </div>
@@ -210,7 +210,7 @@
                         @foreach ($byType->get('cv', []) as $document)
                             <x-profile-document-chip :document="$document" />
                         @endforeach
-                        <x-file-input name="cv" label="Curriculum Vitae (CV) obligator photo" required :max-size-mb="5"
+                        <x-file-input name="cv" label="Curriculum Vitae (CV) with photo" required :max-size-mb="5"
                             :hint="$has('cv') ? 'Choose a new file to replace the one above.' : null" />
                     </div>
                 </div>

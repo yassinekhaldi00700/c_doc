@@ -13,6 +13,7 @@ Route::prefix('professor')
 
         Route::resource('subjects', SubjectController::class)->except(['show', 'create', 'store']);
         Route::get('/subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
+        Route::patch('/subjects/{subject}/toggle-open', [SubjectController::class, 'toggleOpen'])->name('subjects.toggle-open');
 
         Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
         Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');

@@ -49,8 +49,12 @@ class SubjectController extends Controller
 
     /**
      * Doctoral program and title are fixed at creation and never sent by
-     * the edit form (shown read-only there) — only the content fields and
-     * open/closed toggle are ever updatable here.
+     * the edit form (shown read-only there) — only the content fields are
+     * updatable here. Open/closed is handled separately by toggleOpen(),
+     * so a professor can flip it without being blocked by the content
+     * fields' all-or-nothing validation (e.g. on older subjects created
+     * before "Candidate profile" existed, which may have the other three
+     * filled but that one still empty).
      */
     public function update(SubjectRequest $request, ResearchSubject $subject): RedirectResponse
     {
@@ -59,11 +63,19 @@ class SubjectController extends Controller
             'responsibilities' => $request->validated('responsibilities'),
             'candidate_profile' => $request->validated('candidate_profile'),
             'keywords' => $request->validated('keywords'),
-            'is_open' => $request->boolean('is_open'),
         ]);
 
         return redirect()->route('professor.subjects.show', $subject)
             ->with('success', 'Research subject updated successfully.');
+    }
+
+    public function toggleOpen(ResearchSubject $subject): RedirectResponse
+    {
+        $this->authorize('update', $subject);
+
+        $subject->update(['is_open' => ! $subject->is_open]);
+
+        return back()->with('success', $subject->is_open ? 'Subject opened for applications.' : 'Subject closed to applications.');
     }
 
     public function destroy(ResearchSubject $subject): RedirectResponse

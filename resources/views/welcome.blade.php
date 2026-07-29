@@ -21,7 +21,7 @@
                 <div class="col-lg-7">
                     <p class="text-uppercase  fw-semibold mb-3" style="letter-spacing:.2em; color:#eafff0;">Apply for doctoral studies</p>
                     <h1 class="display-5 fw-bold mb-3"> Euromed University of Fès</h1>
-                    <p class="lead text-white-50 mb-4">Browse List of Proposals , submit a complete application online, and track its review status in real time  all in one secure platform.</p>
+                    <p class="lead text-white-50 mb-4">Browse list of proposals, submit a complete application online, and track its progression status in real time  all in one secure platform.</p>
                     <div class="d-flex flex-wrap gap-3">
                         <a href="{{ route('candidate.subjects.index') }}" class="btn btn-light btn-lg px-4">
                             <i class="bi bi-search me-1"></i> Browse List of Proposals

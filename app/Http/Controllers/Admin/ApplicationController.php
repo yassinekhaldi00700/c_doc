@@ -7,7 +7,6 @@ use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ReviewApplicationRequest;
 use App\Models\Application;
-use App\Models\ResearchSubject;
 use App\Models\User;
 use App\Services\ApplicationDecisionService;
 use Illuminate\Http\RedirectResponse;
@@ -24,15 +23,15 @@ class ApplicationController extends Controller
     {
         $applications = Application::with(['candidate.profile', 'subject.department', 'subject.professor'])
             ->when($request->filled('status'), fn ($query) => $query->where('status', $request->status))
-            ->when($request->filled('subject_id'), fn ($query) => $query->where('subject_id', $request->subject_id))
             ->when($request->filled('professor_id'), fn ($query) => $query->whereHas(
                 'subject',
                 fn ($subjectQuery) => $subjectQuery->where('professor_id', $request->professor_id)
             ))
-            ->when($request->filled('search'), fn ($query) => $query->whereHas(
-                'candidate.profile',
-                fn ($profileQuery) => $profileQuery->where('first_name', 'like', '%'.$request->search.'%')
-                    ->orWhere('last_name', 'like', '%'.$request->search.'%')
+            ->when($request->filled('search'), fn ($query) => $query->where(
+                fn ($searchQuery) => $searchQuery
+                    ->whereHas('candidate.profile', fn ($profileQuery) => $profileQuery->where('first_name', 'like', '%'.$request->search.'%')
+                        ->orWhere('last_name', 'like', '%'.$request->search.'%'))
+                    ->orWhereHas('subject', fn ($subjectQuery) => $subjectQuery->where('title', 'like', '%'.$request->search.'%'))
             ))
             ->latest()
             ->paginate(15)
@@ -41,7 +40,6 @@ class ApplicationController extends Controller
         return view('admin.applications.index', [
             'applications' => $applications,
             'statuses' => ApplicationStatus::cases(),
-            'subjects' => ResearchSubject::orderBy('title')->get(),
             'professors' => User::where('role', UserRole::Professor)->orderBy('name')->get(),
         ]);
     }

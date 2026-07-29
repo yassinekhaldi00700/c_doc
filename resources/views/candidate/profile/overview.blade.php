@@ -3,7 +3,7 @@
         <div class="card-body">
             <p class="text-uppercase small fw-semibold mb-1" style="color:#44A66D;">Candidate Profile</p>
             <h2 class="h4 fw-bold mb-1">Complete your profile</h2>
-            <p class="text-muted mb-0">Fill this in once — it's reused for every subject you apply to. Only a motivation letter needs to be provided separately for each application.</p>
+            <p class="h6 mb-0 " style="color:#ea0808;">Fill this in once  it's reused for every subject you apply to. Only a motivation letter needs to be provided separately for each application.</p>
         </div>
     </div>
 

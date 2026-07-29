@@ -2,20 +2,11 @@
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" class="row g-2 align-items-end">
-                <div class="col-md-3">
-                    <x-input-label for="search" value="Search by candidate name" />
-                    <x-text-input id="search" type="text" name="search" value="{{ request('search') }}" />
+                <div class="col-md-5">
+                    <x-input-label for="search" value="Search by candidate name and Subject" />
+                    <x-text-input id="search" type="text" name="search" value="{{ request('search') }}" placeholder="Candidate name or subject title..." />
                 </div>
-                <div class="col-md-3">
-                    <x-input-label for="subject_id" value="Subject" />
-                    <select id="subject_id" name="subject_id" class="form-select">
-                        <option value="">All subjects</option>
-                        @foreach ($subjects as $subject)
-                            <option value="{{ $subject->id }}" @selected(request('subject_id') == $subject->id)>{{ $subject->title }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <x-input-label for="professor_id" value="Professor" />
                     <select id="professor_id" name="professor_id" class="form-select">
                         <option value="">All professors</option>

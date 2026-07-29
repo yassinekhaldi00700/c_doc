@@ -23,7 +23,7 @@
             <div class="position-relative" style="z-index:1; margin-top:300px;">
                 <p class="text-uppercase small fw-semibold mb-3" style="letter-spacing:.2em; color:#eafff0;">Apply for doctoral studies</p>
                 <h1 class="display-6 fw-bold mb-3">Euromed University of Fès</h1>
-                <p class="text-white-50">Browse List of Proposals , submit a complete application online, and track its review status in real time all in one secure platform.</p>
+                <p class="text-white-50">Browse list of proposals, submit a complete application online, and track its progression status in real time all in one secure platform.</p>
                 <div class="d-flex align-items-center gap-3 mt-5">
                 </div>
             </div>
