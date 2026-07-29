@@ -1,0 +1,209 @@
+// Euromed Doctoral Admission Platform — Bootstrap 5 theme
+// Palette: Primary Blue #005292, Primary Green #44A66D, White #FFFFFF
+
+$primary: #005292;
+$secondary: #44A66D;
+$success: #44A66D;
+$info: #0dcaf0;
+$warning: #f0ad4e;
+$danger: #c9364c;
+$light: #f4f7f9;
+$dark: #0b2436;
+
+$body-bg: #FFFFFF;
+$body-color: #212529;
+
+$font-family-sans-serif: 'Figtree', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+$border-radius: 0.6rem;
+$border-radius-sm: 0.4rem;
+$border-radius-lg: 0.9rem;
+
+$enable-shadows: true;
+$box-shadow-sm: 0 0.125rem 0.35rem rgba($dark, 0.06);
+$box-shadow: 0 0.5rem 1.5rem rgba($dark, 0.08);
+$box-shadow-lg: 0 1rem 3rem rgba($dark, 0.1);
+
+$card-cap-bg: rgba($primary, 0.04);
+$card-border-radius: $border-radius-lg;
+$navbar-dark-color: rgba(255, 255, 255, 0.85);
+$navbar-dark-hover-color: #ffffff;
+
+$headings-font-weight: 700;
+$btn-font-weight: 600;
+
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+body {
+    background-color: $light;
+}
+
+::selection {
+    background-color: rgba($primary, 0.15);
+}
+
+.btn-primary,
+.btn-success,
+.btn-outline-primary,
+.btn-outline-secondary {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    transform: translateY(-1px);
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-main {
+    flex: 1 1 auto;
+    padding: 2rem 0;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    min-height: calc(100vh - 56px);
+}
+
+.sidebar .nav-link {
+    color: #495057;
+    border-radius: $border-radius-sm;
+    padding: 0.55rem 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba($primary, 0.1);
+    color: $primary;
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 $primary;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba($primary, 0.06);
+    color: $primary;
+}
+
+.auth-card {
+    max-width: 460px;
+    width: 100%;
+}
+
+.status-badge {
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 0.74rem;
+    padding: 0.45em 0.85em;
+}
+
+.stat-card {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: $border-radius-lg;
+    background: #ffffff;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.stat-card:hover {
+    box-shadow: $box-shadow-sm;
+    transform: translateY(-1px);
+}
+
+.subject-card {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: $border-radius-lg;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.subject-card:hover {
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 82, 146, 0.12);
+    transform: translateY(-2px);
+}
+
+.hero-gradient {
+    background: linear-gradient(135deg, $primary 0%, darken($primary, 8%) 60%, $secondary 100%);
+    box-shadow: $box-shadow;
+}
+
+.degree-track-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 1rem;
+    height: 100%;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    border-radius: $border-radius-lg;
+    background: #ffffff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.degree-track-card:hover {
+    border-color: rgba($primary, 0.4);
+}
+
+.degree-track-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    background: rgba($primary, 0.08);
+    color: $primary;
+}
+
+.degree-track-check {
+    color: transparent;
+    font-size: 1.15rem;
+    transition: color 0.15s ease;
+}
+
+.btn-check:checked + .degree-track-card {
+    border-color: $primary;
+    background-color: rgba($primary, 0.05);
+    box-shadow: 0 0 0 1px $primary;
+}
+
+.btn-check:checked + .degree-track-card .degree-track-check {
+    color: $primary;
+}
+
+.btn-check:focus-visible + .degree-track-card {
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+}
+
+.timeline {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.timeline li {
+    position: relative;
+    padding-left: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-left: 2px solid rgba(0, 0, 0, 0.08);
+    margin-left: 0.4rem;
+}
+
+.timeline li:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -0.4rem;
+    top: 0.15rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: $primary;
+}

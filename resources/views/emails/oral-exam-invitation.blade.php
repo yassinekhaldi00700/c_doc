@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="margin:0; padding:0; background-color:#f4f6f8; font-family: Arial, Helvetica, sans-serif; color:#1f2937;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f6f8; padding:32px 0;">
+        <tr>
+            <td align="center">
+                <table role="presentation" width="100%" style="max-width:560px; background-color:#ffffff; border-radius:8px; overflow:hidden;" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="background-color:#005292; padding:24px 32px;">
+                            <span style="color:#ffffff; font-size:20px; font-weight:bold;">{{ config('app.name') }}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:32px;">
+                            <p style="margin:0 0 16px; font-size:16px;">Dear {{ $candidateName }},</p>
+                            <p style="margin:0 0 16px; font-size:16px; line-height:1.5;">
+                                Congratulations! Your application for <strong>{{ $subjectTitle }}</strong> has been reviewed and you have been
+                                <strong style="color:#44A66D;">accepted for the oral exam</strong>.
+                            </p>
+                            @if ($examDate)
+                                <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#eafff0; border-radius:6px; margin:0 0 16px;">
+                                    <tr>
+                                        <td style="padding:14px 18px; font-size:15px; color:#1f2937;">
+                                            <strong>Oral exam:</strong> {{ $examDate }}
+                                        </td>
+                                    </tr>
+                                </table>
+                            @endif
+                            <p style="margin:0 0 16px; font-size:16px; line-height:1.5;">
+                                Please make sure to be available at the date and time above. Our team will follow up shortly with the format of the interview (in-person or remote).
+                                In the meantime, you can check your application status at any time from your candidate dashboard.
+                            </p>
+                            <table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0;">
+                                <tr>
+                                    <td style="background-color:#005292; border-radius:6px;">
+                                        <a href="{{ $applicationUrl }}" style="display:inline-block; padding:12px 24px; color:#ffffff; text-decoration:none; font-size:15px; font-weight:bold;">View My Application</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin:0; font-size:14px; color:#6b7280;">If you have any questions, feel free to reach out to us.</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding:20px 32px; background-color:#f9fafb; font-size:12px; color:#9ca3af;">
+                             Euromed University of Fès
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

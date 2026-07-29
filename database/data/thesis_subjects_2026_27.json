@@ -1,0 +1,410 @@
+[
+  {
+    "n": 1,
+    "encadrant": "Abdallah AFOUKAL",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Mathematical and Numerical Analysis of a Class of Partial Differential Equations with Nonlocal Boundary Conditions: Applications to Biological, Epidemic, and Forest Growth Models",
+    "email": "a.afoukal@ueuromed.org"
+  },
+  {
+    "n": 2,
+    "encadrant": "Abderazzak MOUIHA",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Hybrid Artificial Intelligence and Statistical Computational Modeling for Early Diagnosis of Brain Disorders",
+    "email": "a.mouiha@ueuromed.org"
+  },
+  {
+    "n": 3,
+    "encadrant": "Abderrahim WAGA",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Early Melanoma Diagnosis for Global Healthcare Using Deep Learning and Machine Learning.",
+    "email": "a.waga@ueuromed.org"
+  },
+  {
+    "n": 4,
+    "encadrant": "Alae AMMOUR",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Détection des hallucinations et évaluation de la fiabilité des grands modèles de langage médicaux",
+    "email": "a.ammour@ueuromed.org"
+  },
+  {
+    "n": 5,
+    "encadrant": "Amal BOUTIB",
+    "co_encadrant": "Zakariae EL KHATTABI",
+    "etablissement": "Health Sciences/Engineering Sciences",
+    "titre": "AI-HRQoL: Developing an Artificial Intelligence Model for Predictive Surveillance of Health-Related Quality of Life in Public Health",
+    "email": "a.boutib@ueuromed.org"
+  },
+  {
+    "n": 6,
+    "encadrant": "Asmae ABADI",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Agentic Artificial Intelligence for Carbon-Aware, Sustainable and Autonomous Production Systems",
+    "email": "a.abadi@ueuromed.org"
+  },
+  {
+    "n": 7,
+    "encadrant": "Belkheir HAMMOUTI",
+    "co_encadrant": "Rachid SALGHI",
+    "etablissement": "Engineering Sciences",
+    "titre": "Nanophosphates de fer pour cathodes de batteries lithium-ion : synthèse, optimisation et mise à l’échelle industrielle",
+    "email": "b.hammouti@ueuromed.org"
+  },
+  {
+    "n": 8,
+    "encadrant": "Belkheir HAMMOUTI",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Development of an Intelligent Predictive Maintenance System for Lithium-Ion Batteries Based on an Electrochemical Digital Twin and Artificial Intelligence for Electric Vehicles Operating Under Extreme North African Climatic Conditions",
+    "email": "b.hammouti@ueuromed.org"
+  },
+  {
+    "n": 9,
+    "encadrant": "Abebaw DEGU WORKNEH",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Counterfactual Policy Explanations for Safe Reinforcement Learning in Healthcare and Safety-Critical Decision Systems",
+    "email": "a.deguworkneh@ueuromed.org"
+  },
+  {
+    "n": 10,
+    "encadrant": "Hind BELAZIZ",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Artificial Intelligence and Higher Education: Preparing Human Capital for the Future Labour Market in Euro-Mediterranean and African Countries",
+    "email": "h.belaziz@ueuromed.org"
+  },
+  {
+    "n": 11,
+    "encadrant": "Iatimad AKHRIF",
+    "co_encadrant": "Mostapha EL JAI",
+    "etablissement": "Engineering Sciences",
+    "titre": "AI and Data Driven-design for Sustainable Aeronautic and Automotive Additive Manufacturing Industry",
+    "email": "i.akhrif@ueuromed.org"
+  },
+  {
+    "n": 12,
+    "encadrant": "Roberto INCITTI",
+    "co_encadrant": "Mohamed ZAGOUR",
+    "etablissement": "Health Sciences/Engineering Sciences",
+    "titre": "Modeling by AI and Differential Equations of large-scale Epidemics using clinico-genomic data",
+    "email": "r.incitti@ueuromed.org"
+  },
+  {
+    "n": 13,
+    "encadrant": "Issa NDIAYE",
+    "co_encadrant": "Tijani BOUNAHMIDI",
+    "etablissement": "Engineering Sciences",
+    "titre": "Development and Optimization of Non-Conventional Water Pre-treatment Systems For Green Hydrogen Electrolysis in Morocco",
+    "email": "i.ndiaye@ueuromed.org"
+  },
+  {
+    "n": 14,
+    "encadrant": "KALOMA Usman",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Enhancing Cyber Resilience Against AI-Generated Phishing and Deepfake Attacks",
+    "email": "u.majikumna@ueuromed.org"
+  },
+  {
+    "n": 15,
+    "encadrant": "Khalil El Mabrouk",
+    "co_encadrant": "Bricha Meriame",
+    "etablissement": "Engineering Sciences",
+    "titre": "Unlocking Alveolar Bone Regeneration: Bioresorbable Bioactive Glass-Embedded Biomembranes for Next-Generation Bone Augmentation",
+    "email": "k.elmabrouk@ueuromed.org"
+  },
+  {
+    "n": 16,
+    "encadrant": "Meriame BRICHA",
+    "co_encadrant": "El Mabrouk Khalil",
+    "etablissement": "Engineering Sciences",
+    "titre": "In silico Modeling and Machine Learning Approaches for Predictive Design of Hydroxyapatite / Bioglass Hybrid Biomaterials",
+    "email": "m.bricha@ueuromed.org"
+  },
+  {
+    "n": 17,
+    "encadrant": "Mohamed BOUNDOR",
+    "co_encadrant": "Abdelkrim El Kadib",
+    "etablissement": "Engineering Sciences",
+    "titre": "Porous metal phosphate-coated-carbon materials for advanced battery electrodes",
+    "email": "m.boundor@ueuromed.org"
+  },
+  {
+    "n": 18,
+    "encadrant": "Mohamed Mustapha ZARROUK",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Physics-Informed Neural Networks (PINNs) for Solving Partial Differential Equations",
+    "email": "m.zarrouk@ueuromed.org"
+  },
+  {
+    "n": 19,
+    "encadrant": "Mohamed Taiebine",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Culturally and Linguistically Adapted Tele-Neuropsychology Screening and Digital Care for Dementia in Moroccan Populations",
+    "email": "m.taiebine@ueuromed.org"
+  },
+  {
+    "n": 20,
+    "encadrant": "Mohamed ZAGOUR",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Hybrid Physics-Informed Artificial Intelligence Approaches for Modeling and Optimization of Green Hydrogen Production Systems via Water Electrolysis",
+    "email": "m.zagour@insa.ueuromed.org"
+  },
+  {
+    "n": 21,
+    "encadrant": "Mohammed MASROUR",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Physics-informed neural networks (PINNs) for biological and health applications",
+    "email": "m.masrour@ueuromed.org"
+  },
+  {
+    "n": 22,
+    "encadrant": "Mostapha EL JAI",
+    "co_encadrant": "Iatimad AKHRIF",
+    "etablissement": "Engineering Sciences",
+    "titre": "Experimental and Numerical Investigation of Mechanical Behavior and Corrosion Resistance of AFSD-Manufactured Materials",
+    "email": "m.eljai@ueuromed.org"
+  },
+  {
+    "n": 23,
+    "encadrant": "Mounia SLIGHOUA",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "The Role of Diplomacy in Fostering Civic-mindedness and Citizenship: Lessons from both the Past and the Present.",
+    "email": "m.slighoua@ueuromed.org"
+  },
+  {
+    "n": 24,
+    "encadrant": "Nabil EL BRAHMI",
+    "co_encadrant": "Said EL KAZZOULI",
+    "etablissement": "Health Sciences/Engineering Sciences",
+    "titre": "AI-Guided Discovery and Experimental Validation of Neuroprotective Compounds from Moroccan Medicinal Plants in Dopaminergic Models of Parkinson's Disease: Cannabis, Saffron, Rosemary, and Argan as Representative Species",
+    "email": "n.elbrahmi@ueuromed.org"
+  },
+  {
+    "n": 25,
+    "encadrant": "Nadia KATIR",
+    "co_encadrant": "Mohamed BOUNDOR",
+    "etablissement": "Engineering Sciences",
+    "titre": "Ionomatériaux hybrides et ionogels phosphorés pour l’extraction de métaux critiques et le stockage d’énergie sécurisé",
+    "email": "n.katir@ueuromed.org"
+  },
+  {
+    "n": 26,
+    "encadrant": "Nadir RIHANI",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Sustainable Structural Design of Modular Systems for 3D Concrete Printing (3DCP): Topology Optimization, Connections and Circularity",
+    "email": "n.rihani@ueuromed.org"
+  },
+  {
+    "n": 27,
+    "encadrant": "Oumaima MOUTIK",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Self-Supervised Generative Video Foundation Models for Learning Spatial-Temporal Visual Representations",
+    "email": "o.moutik@ueuromed.org"
+  },
+  {
+    "n": 28,
+    "encadrant": "Said EL KAZZOULI",
+    "co_encadrant": null,
+    "etablissement": "Health Sciences/Engineering Sciences",
+    "titre": "Fragment-based drug design for selective kinase inhibitor discovery: Towards personalized medicine for cancer treatment",
+    "email": "s.elkazzouli@ueuromed.org"
+  },
+  {
+    "n": 29,
+    "encadrant": "Nourddin SAIDOU",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Skeletonizationn Based Geometric Modelfor Targeted Treatment of Cancerous Regions",
+    "email": "n.saidou@insa.ueuromed.org"
+  },
+  {
+    "n": 30,
+    "encadrant": "Rachid SALGHI",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Traitement magnétique couplé à l’électrocoagulation de l’eau saumâtre pour l’irrigation en agriculture",
+    "email": "r.salghi@ueuromed.org"
+  },
+  {
+    "n": 31,
+    "encadrant": "Sara BAKKALI",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Artificial Intelligence-Driven Privacy-Preserving Security for Sustainable Healthcare in the Internet of Medical Things (IoMT)",
+    "email": "s.bakkali@insa.ueuromed.org"
+  },
+  {
+    "n": 32,
+    "encadrant": "Taha AIT TCHAKOUCHT",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "LLM-Augmented SOC with Knowledge Graph Reasoning",
+    "email": "t.ait-tchakoucht@ueuromed.org"
+  },
+  {
+    "n": 33,
+    "encadrant": "Taha ZOULAGH",
+    "co_encadrant": "Abderahim WAGA",
+    "etablissement": "Engineering Sciences",
+    "titre": "Smart City et Mobilité Aérienne : Fusion de l'Apprentissage Profond et du Contrôle Embarqué pour la Navigation Autonome des Drones de Service",
+    "email": "t.zoulagh@ueuromed.org"
+  },
+  {
+    "n": 34,
+    "encadrant": "Taha ZOULAGH",
+    "co_encadrant": "Badr EL KARI",
+    "etablissement": "Engineering Sciences",
+    "titre": "Système de Contrôle Prédictif et Adaptatif Basé sur l'Intelligence Artificielle pour l'Optimisation Énergétique des Véhicules Électriques Hybrides",
+    "email": "t.zoulagh@ueuromed.org"
+  },
+  {
+    "n": 35,
+    "encadrant": "Younes AHOUGA",
+    "co_encadrant": "Sanae KASMI",
+    "etablissement": "Human and Social Sciences",
+    "titre": "La diplomatie migratoire du Maroc et la gouvernance multiniveaux des migrations",
+    "email": "y.ahouga@ueuromed.org"
+  },
+  {
+    "n": 36,
+    "encadrant": "Zhor EL HALLAOUI",
+    "co_encadrant": "Tijani BOUNAHMIDI",
+    "etablissement": "Engineering Sciences",
+    "titre": "Optimisation du couplage photovoltaïque-thermique (PVT)-Électrolyseur approprié pour la Production d'Hydrogène Vert en Zone Industrielle",
+    "email": "z.elhallaoui@ueuromed.org"
+  },
+  {
+    "n": 37,
+    "encadrant": "BAKKALI Sara ",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Physiosense: Embedded AI for Personalized Predictive Diagnosis through Multimodal Physiological Sensor Fusion",
+    "email": "s.bakkali@insa.ueuromed.org"
+  },
+  {
+    "n": 38,
+    "encadrant": "BELARBI Wafae ",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Territorial Governance and the Challenges of Water Resource Preservation",
+    "email": "w.belarbi@ueuromed.org"
+  },
+  {
+    "n": 39,
+    "encadrant": "BELARBI Wafae ",
+    "co_encadrant": "EL HARROUNI Rime ",
+    "etablissement": "Human and Social Sciences",
+    "titre": "Impact of Thermal Amplitudes on the Degradation of Rammed-Earth Walls in the Kasbahs of Southern Morocco",
+    "email": "w.belarbi@ueuromed.org"
+  },
+  {
+    "n": 40,
+    "encadrant": "EL KAZZOULI Said",
+    "co_encadrant": "GHANEM Hamdoun",
+    "etablissement": "Health Sciences/Engineering Sciences",
+    "titre": "Applications of Nuclear Magnetic Resonance (NMR) in Medical Sciences",
+    "email": "s.elkazzouli@ueuromed.org"
+  },
+  {
+    "n": 41,
+    "encadrant": "EL ATTARI Anouar ",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "IA générative et journalisme de crise : qualité de l’information, crédibilité et nouveaux workflow",
+    "email": "a.elattari@ueuromed.org"
+  },
+  {
+    "n": 42,
+    "encadrant": "TAIEBINE Mohamed ",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Investigating the Mechanisms of Digital Psychological Support on Acculturative Stress Among Migrants in Morocco",
+    "email": "m.taiebine@ueuromed.org"
+  },
+  {
+    "n": 43,
+    "encadrant": "NNIYA Magda ",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Investigating the Mechanisms of Digital Psychological Support on Acculturative Stress Among Migrants in Morocco",
+    "email": "m.nniya@ueuromed.org"
+  },
+  {
+    "n": 44,
+    "encadrant": "BENJELLOUN ANDALOUSSI Omar",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Civic Influencers and Micro Opinion Leaders: A New Form of Power in Political Governance in Morocco?",
+    "email": "o.benjelloun@ueuromed.org"
+  },
+  {
+    "n": 45,
+    "encadrant": "EL KARI Badr ",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Hybrid AI-Driven Digital Twin for Early Diagnosis, Disease Simulation, and Personalized Treatment Using Synthetic Multimodal Medical Data",
+    "email": "b.elkari@ueuromed.org"
+  },
+  {
+    "n": 46,
+    "encadrant": "Garno Zakaria",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "Responsible AI Governance in Morocco: Data Protection, Digital Sovereignty, and Academic Integrity",
+    "email": "z.garno@ueuromed.org"
+  },
+  {
+    "n": 47,
+    "encadrant": "ABADI Asmae ",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Modeling and Analysis of Energy and Material Flows for the Diagnosis of Moroccan Industrial Zones",
+    "email": "a.abadi@ueuromed.org"
+  },
+  {
+    "n": 48,
+    "encadrant": "AL KORACHI Issam",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Improving Regularity of 3DCP (Mortar) Printed Sections via an Integrated Smoothing System",
+    "email": "i.alkorachi@ueuromed.org"
+  },
+  {
+    "n": 49,
+    "encadrant": "BOUNAHMIDI Tijani",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Development and Optimization of an Integrated FO-Membrane Distillation Process for the Purification of Industrial Wastewater for Electrolysis",
+    "email": "t.bounahmidi@ueuromed.org"
+  },
+  {
+    "n": 50,
+    "encadrant": "SLAMTI Hasna",
+    "co_encadrant": null,
+    "etablissement": "Human and Social Sciences",
+    "titre": "The Development of Ports and Maritime Transport in Morocco: Legal, Logistical and Strategic Challenges in the Euro-Mediterranean Area",
+    "email": "h.slamti@ueuromed.org"
+  },
+  {
+    "n": 51,
+    "encadrant": "AMELLAL Asmae",
+    "co_encadrant": null,
+    "etablissement": "Engineering Sciences",
+    "titre": "Design and Development of an AI-, Drone-, and Digital-Twin–Enabled Platform for Anomaly Detection and Sustainable Manufacturing Operations.",
+    "email": "a.amellal@ueuromed.org"
+  }
+]

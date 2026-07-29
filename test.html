@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indoor Navigation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    body{
+    font-family:Arial;
+    background:#f4f4f4;
+    text-align:center;
+}
+
+canvas{
+    background:white;
+    border:2px solid #333;
+    margin-top:20px;
+}
+
+.controls{
+    margin-top:20px;
+}
+
+select,button{
+    padding:8px;
+    margin:5px;
+}
+</style>
+<body>
+
+<h2>Indoor Navigation</h2>
+
+<div class="controls">
+
+    <select id="start">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+    </select>
+
+    <select id="end">
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+        <option>D</option>
+        <option>E</option>
+    </select>
+
+    <button onclick="findPath()">Find Path</button>
+
+</div>
+
+<canvas id="map" width="900" height="600"></canvas>
+
+<script src="script.js">const canvas = document.getElementById("map");
+const ctx = canvas.getContext("2d");
+
+
+// Coordinates of nodes
+
+const nodes = {
+
+    A:{x:100,y:100},
+    B:{x:300,y:120},
+    C:{x:500,y:100},
+    D:{x:300,y:300},
+    E:{x:600,y:300}
+
+};
+
+
+// Connections
+
+const graph={
+
+A:[
+    {node:"B",weight:5}
+],
+
+B:[
+    {node:"A",weight:5},
+    {node:"C",weight:4},
+    {node:"D",weight:2}
+],
+
+C:[
+    {node:"B",weight:4},
+    {node:"E",weight:6}
+],
+
+D:[
+    {node:"B",weight:2},
+    {node:"E",weight:3}
+],
+
+E:[
+    {node:"C",weight:6},
+    {node:"D",weight:3}
+]
+
+};
+
+
+
+function drawMap(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    // draw edges
+
+    for(let node in graph){
+
+        graph[node].forEach(edge=>{
+
+            let n1=nodes[node];
+            let n2=nodes[edge.node];
+
+            ctx.beginPath();
+            ctx.moveTo(n1.x,n1.y);
+            ctx.lineTo(n2.x,n2.y);
+            ctx.strokeStyle="#999";
+            ctx.lineWidth=3;
+            ctx.stroke();
+
+        });
+
+    }
+
+    // draw nodes
+
+    for(let n in nodes){
+
+        let p=nodes[n];
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,18,0,Math.PI*2);
+        ctx.fillStyle="#3498db";
+        ctx.fill();
+
+        ctx.fillStyle="white";
+        ctx.font="16px Arial";
+        ctx.textAlign="center";
+        ctx.fillText(n,p.x,p.y+5);
+
+    }
+
+}
+
+drawMap();
+
+
+
+
+// Dijkstra
+
+function dijkstra(start,end){
+
+    let dist={};
+    let prev={};
+    let visited=[];
+
+    for(let n in graph){
+
+        dist[n]=Infinity;
+        prev[n]=null;
+
+    }
+
+    dist[start]=0;
+
+    while(visited.length<Object.keys(graph).length){
+
+        let current=null;
+
+        for(let n in dist){
+
+            if(!visited.includes(n)){
+
+                if(current===null || dist[n]<dist[current]){
+
+                    current=n;
+
+                }
+
+            }
+
+        }
+
+        visited.push(current);
+
+        graph[current].forEach(edge=>{
+
+            let alt=dist[current]+edge.weight;
+
+            if(alt<dist[edge.node]){
+
+                dist[edge.node]=alt;
+                prev[edge.node]=current;
+
+            }
+
+        });
+
+    }
+
+    let path=[];
+
+    let u=end;
+
+    while(u){
+
+        path.unshift(u);
+        u=prev[u];
+
+    }
+
+    return path;
+
+}
+
+
+
+
+function highlight(path){
+
+    drawMap();
+
+    ctx.strokeStyle="red";
+    ctx.lineWidth=6;
+
+    for(let i=0;i<path.length-1;i++){
+
+        let a=nodes[path[i]];
+        let b=nodes[path[i+1]];
+
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.stroke();
+
+    }
+
+}
+
+
+
+
+function findPath(){
+
+    let start=document.getElementById("start").value;
+    let end=document.getElementById("end").value;
+
+    let path=dijkstra(start,end);
+
+    highlight(path);
+
+    console.log(path);
+
+}</script>
+
+</body>
+</html>
