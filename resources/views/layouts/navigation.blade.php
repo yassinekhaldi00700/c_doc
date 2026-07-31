@@ -36,3 +36,5 @@
         </div>
     </div>
 </nav>
+
+@include('partials.announcement-bar')

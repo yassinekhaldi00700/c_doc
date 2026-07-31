@@ -207,3 +207,45 @@ body {
     border-radius: 50%;
     background: $primary;
 }
+
+.announcement-bar {
+    height: 30px;
+    background-color: $secondary;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+.announcement-bar-track {
+    display: inline-flex;
+    align-items: center;
+    height: 30px;
+    animation: announcement-scroll 28s linear infinite;
+    will-change: transform;
+}
+
+.announcement-bar-track span {
+    display: inline-flex;
+    align-items: center;
+    padding-right: 4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 30px;
+}
+
+@keyframes announcement-scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .announcement-bar-track {
+        animation: none;
+        overflow-x: auto;
+    }
+}
