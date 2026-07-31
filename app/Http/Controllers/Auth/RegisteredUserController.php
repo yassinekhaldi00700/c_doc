@@ -10,9 +10,11 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
+use Throwable;
 
 class RegisteredUserController extends Controller
 {
@@ -53,9 +55,18 @@ class RegisteredUserController extends Controller
         // Graph API call — a couple of seconds, sometimes much more), which
         // would make the registration form hang. Deferring it until after
         // the response is sent keeps signup fast without needing a queue
-        // worker running.
+        // worker running. Wrapped in its own try/catch since this runs
+        // after the response has already gone out — an unhandled failure
+        // here (e.g. a network blip reaching Microsoft Graph) has no
+        // request left to report an error on, so the only thing to do is
+        // log it; the candidate can still request a new link from the
+        // "verify email" prompt regardless.
         dispatch(function () use ($user) {
-            event(new Registered($user));
+            try {
+                event(new Registered($user));
+            } catch (Throwable $e) {
+                Log::error('Failed to send verification email on registration: '.$e->getMessage(), ['user_id' => $user->id]);
+            }
         })->afterResponse();
 
         Auth::login($user);

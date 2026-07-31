@@ -13,6 +13,12 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <div class="d-flex align-items-center justify-content-between">
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
