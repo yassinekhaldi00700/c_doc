@@ -4,13 +4,18 @@
             <span class="badge bg-primary-subtle text-primary mb-2">{{ $subject->department->name }}</span>
             <h2 class="h4 fw-bold mb-0">{{ $subject->title }}</h2>
         </div>
-        <form method="POST" action="{{ route('admin.subjects.destroy', $subject) }}">
-            @csrf
-            @method('DELETE')
-            <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Delete this subject and all its applications?')">
-                <i class="bi bi-trash me-1"></i>Delete Subject
-            </button>
-        </form>
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.subjects.edit', $subject) }}" class="btn btn-outline-secondary">
+                <i class="bi bi-pencil me-1"></i>Edit
+            </a>
+            <form method="POST" action="{{ route('admin.subjects.destroy', $subject) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Delete this subject and all its applications?')">
+                    <i class="bi bi-trash me-1"></i>Delete Subject
+                </button>
+            </form>
+        </div>
     </div>
 
     <div class="row g-4">
@@ -18,7 +23,26 @@
             <div class="card border-0 shadow-sm mb-4">
                 <div class="card-body">
                     <h3 class="h6 fw-bold text-uppercase text-muted mb-2">Description</h3>
-                    <p class="mb-0">{{ $subject->description }}</p>
+                    <p class="mb-3">{{ $subject->description }}</p>
+
+                    @if ($subject->responsibilities)
+                        <h3 class="h6 fw-bold text-uppercase text-muted mb-2">PhD Student's Responsibilities</h3>
+                        <p class="mb-3">{{ $subject->responsibilities }}</p>
+                    @endif
+
+                    @if ($subject->candidate_profile)
+                        <h3 class="h6 fw-bold text-uppercase text-muted mb-2">Candidate Profile</h3>
+                        <p class="mb-3">{{ $subject->candidate_profile }}</p>
+                    @endif
+
+                    @if ($subject->keywords)
+                        <h3 class="h6 fw-bold text-uppercase text-muted mb-2">Keywords</h3>
+                        <p class="mb-0">
+                            @foreach (explode(',', $subject->keywords) as $keyword)
+                                <span class="badge bg-light text-dark border me-1">{{ trim($keyword) }}</span>
+                            @endforeach
+                        </p>
+                    @endif
                 </div>
             </div>
 

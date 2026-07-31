@@ -71,6 +71,54 @@ class SubjectController extends Controller
         ]);
     }
 
+    /**
+     * Unlike the professor's editor (which can't touch professor/department
+     * /title and enforces the content fields as all-or-nothing), an admin
+     * can edit everything — including reassigning the subject to a
+     * different professor or doctoral program.
+     */
+    public function edit(ResearchSubject $subject): View
+    {
+        $this->authorize('update', $subject);
+
+        return view('admin.subjects.edit', [
+            'subject' => $subject->load(['professor', 'department']),
+            'departments' => Department::orderBy('name')->get(),
+            'professors' => User::where('role', UserRole::Professor)->orderBy('name')->get(),
+        ]);
+    }
+
+    /**
+     * Open/closed is handled separately by toggleOpen(), same reasoning as
+     * the professor's editor: it shouldn't be blocked by the content
+     * fields' all-or-nothing validation (many existing subjects predate
+     * "Candidate profile" and still have it empty).
+     */
+    public function update(SubjectRequest $request, ResearchSubject $subject): RedirectResponse
+    {
+        $subject->update([
+            'professor_id' => $request->validated('professor_id'),
+            'department_id' => $request->validated('department_id'),
+            'title' => $request->validated('title'),
+            'description' => $request->validated('description'),
+            'responsibilities' => $request->validated('responsibilities'),
+            'candidate_profile' => $request->validated('candidate_profile'),
+            'keywords' => $request->validated('keywords'),
+        ]);
+
+        return redirect()->route('admin.subjects.show', $subject)
+            ->with('success', 'Research subject updated successfully.');
+    }
+
+    public function toggleOpen(ResearchSubject $subject): RedirectResponse
+    {
+        $this->authorize('update', $subject);
+
+        $subject->update(['is_open' => ! $subject->is_open]);
+
+        return back()->with('success', $subject->is_open ? 'Subject opened for applications.' : 'Subject closed to applications.');
+    }
+
     public function destroy(ResearchSubject $subject): RedirectResponse
     {
         $subject->delete();

@@ -23,6 +23,9 @@ Route::prefix('admin')
         Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
         Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
         Route::get('/subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
+        Route::get('/subjects/{subject}/edit', [SubjectController::class, 'edit'])->name('subjects.edit');
+        Route::put('/subjects/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+        Route::patch('/subjects/{subject}/toggle-open', [SubjectController::class, 'toggleOpen'])->name('subjects.toggle-open');
         Route::delete('/subjects/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
 
         Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');

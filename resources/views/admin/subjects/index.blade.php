@@ -73,6 +73,7 @@
                                 </td>
                                 <td class="text-end">
                                     <a href="{{ route('admin.subjects.show', $subject) }}" class="btn btn-sm btn-outline-primary">View</a>
+                                    <a href="{{ route('admin.subjects.edit', $subject) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
                                     <form method="POST" action="{{ route('admin.subjects.destroy', $subject) }}" class="d-inline">
                                         @csrf
                                         @method('DELETE')
