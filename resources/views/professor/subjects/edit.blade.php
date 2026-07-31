@@ -8,7 +8,7 @@
             <form method="POST" action="{{ route('professor.subjects.toggle-open', $subject) }}">
                 @csrf
                 @method('PATCH')
-                <button type="submit" class="btn {{ $subject->is_open ? 'btn-success' : 'btn-outline-secondary' }}">
+                <button type="submit" class="btn {{ $subject->is_open ? 'btn-success' : 'btn-danger' }}">
                     <i class="bi {{ $subject->is_open ? 'bi-unlock-fill' : 'bi-lock-fill' }} me-1"></i>
                     {{ $subject->is_open ? 'Open for applications' : 'Closed to applications' }}
                 </button>
