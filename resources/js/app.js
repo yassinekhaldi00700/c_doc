@@ -53,6 +53,59 @@ function initPdfInputValidation() {
 document.addEventListener('DOMContentLoaded', initPdfInputValidation);
 document.body.addEventListener('htmx:afterSwap', initPdfInputValidation);
 
+function initPrivacyConsent() {
+    document.querySelectorAll('[data-bs-toggle="tooltip"][data-bs-custom-class="cndp-tooltip"]').forEach((element) => {
+        bootstrap.Tooltip.getOrCreateInstance(element);
+    });
+
+    document.querySelectorAll('[data-privacy-consent-form]').forEach((form) => {
+        if (form.dataset.privacyConsentBound === 'true') {
+            return;
+        }
+
+        form.dataset.privacyConsentBound = 'true';
+        const consent = form.querySelector('input[name="privacy_consent"]');
+
+        if (!consent) {
+            return;
+        }
+
+        const error = document.getElementById(`${consent.id}_errors`);
+
+        consent.addEventListener('change', () => {
+            if (consent.checked) {
+                consent.classList.remove('is-invalid');
+
+                if (error?.dataset.clientError === 'true') {
+                    error.textContent = '';
+                    delete error.dataset.clientError;
+                }
+            }
+        });
+
+        form.addEventListener('submit', (event) => {
+            if (event.submitter?.formNoValidate || consent.checked) {
+                return;
+            }
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            consent.classList.add('is-invalid');
+
+            if (error) {
+                error.textContent = 'You must consent to the processing of your personal data before continuing.';
+                error.dataset.clientError = 'true';
+            }
+
+            consent.focus();
+            consent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initPrivacyConsent);
+document.body.addEventListener('htmx:afterSwap', initPrivacyConsent);
+
 /**
  * Some profile fields are only required for a specific degree track (e.g.
  * the license/bachelor certificate is required for Master, optional for

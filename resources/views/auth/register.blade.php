@@ -5,7 +5,7 @@
         <p class="text-muted">Register as a candidate to browse doctoral research subjects and submit your application.</p>
     </div>
 
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" data-privacy-consent-form>
         @csrf
 
         <div class="mb-3">
@@ -37,6 +37,8 @@
             <x-text-input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
             <x-input-error :messages="$errors->get('password_confirmation')" />
         </div>
+
+        <x-privacy-consent id="registration_privacy_consent" />
 
         <div class="d-flex align-items-center justify-content-between">
             <a class="small fw-semibold text-decoration-none" href="{{ route('login') }}" style="color:#005292;">

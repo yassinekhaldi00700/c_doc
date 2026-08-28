@@ -41,6 +41,10 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => ['nullable', 'string', 'max:30'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'privacy_consent' => ['required', 'accepted'],
+        ], [
+            'privacy_consent.required' => 'You must consent to the processing of your personal data before registering.',
+            'privacy_consent.accepted' => 'You must consent to the processing of your personal data before registering.',
         ]);
 
         $user = User::create([

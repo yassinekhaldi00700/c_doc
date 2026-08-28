@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('candidate.profile.academic.update') }}" enctype="multipart/form-data" novalidate
+    <form method="POST" action="{{ route('candidate.profile.academic.update') }}" enctype="multipart/form-data" novalidate data-privacy-consent-form
           hx-boost="true" hx-encoding="multipart/form-data" hx-target="body" hx-swap="outerHTML">
         @csrf
 
@@ -246,6 +246,8 @@
                 </div>
             </div>
         </div>
+
+        <x-privacy-consent id="academic_privacy_consent" />
 
         <div class="d-flex justify-content-end gap-2 mb-5">
             <a href="{{ route('candidate.profile.overview') }}" hx-boost="true" class="btn btn-outline-secondary">Cancel</a>

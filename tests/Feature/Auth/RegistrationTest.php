@@ -13,7 +13,23 @@ class RegistrationTest extends TestCase
     {
         $response = $this->get('/register');
 
-        $response->assertStatus(200);
+        $response->assertStatus(200)
+            ->assertSee('I consent to the processing of my personal data.')
+            ->assertSee('A-GS-836/2022')
+            ->assertSee('T-HB-331/2022');
+    }
+
+    public function test_consent_is_required_to_register(): void
+    {
+        $response = $this->post('/register', [
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+
+        $response->assertSessionHasErrors('privacy_consent');
+        $this->assertGuest();
     }
 
     public function test_new_users_can_register(): void
@@ -23,6 +39,7 @@ class RegistrationTest extends TestCase
             'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
+            'privacy_consent' => '1',
         ]);
 
         $this->assertAuthenticated();

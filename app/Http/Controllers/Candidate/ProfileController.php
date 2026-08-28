@@ -68,8 +68,10 @@ class ProfileController extends Controller
 
         $fileValidator = Validator::make($request->all(), [
             'documents.cin_passport' => ['nullable', 'file', 'mimes:pdf', 'max:5120'],
-        ], [], [
+            'privacy_consent' => ['required', 'accepted'],
+        ], $this->privacyConsentMessages(), [
             'documents.cin_passport' => 'national ID / passport',
+            'privacy_consent' => 'personal-data consent',
         ]);
 
         if ($fileValidator->fails()) {
@@ -122,7 +124,12 @@ class ProfileController extends Controller
     {
         $profile = $this->profileFor($request);
 
-        $fileValidator = Validator::make($request->all(), $this->academicFileRules(), [], $this->academicFileAttributes());
+        $fileValidator = Validator::make(
+            $request->all(),
+            [...$this->academicFileRules(), 'privacy_consent' => ['required', 'accepted']],
+            $this->privacyConsentMessages(),
+            [...$this->academicFileAttributes(), 'privacy_consent' => 'personal-data consent']
+        );
 
         if ($fileValidator->fails()) {
             return back()->withErrors($fileValidator)->withInput();
@@ -348,5 +355,16 @@ class ProfileController extends Controller
         return collect(self::ACADEMIC_DOCUMENT_LABELS)
             ->mapWithKeys(fn ($label, $field) => ["documents.{$field}" => $label])
             ->all();
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    protected function privacyConsentMessages(): array
+    {
+        return [
+            'privacy_consent.required' => 'You must consent to the processing of your personal data before saving this profile step.',
+            'privacy_consent.accepted' => 'You must consent to the processing of your personal data before saving this profile step.',
+        ];
     }
 }
