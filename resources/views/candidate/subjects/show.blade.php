@@ -57,6 +57,12 @@
                             <a href="{{ route('candidate.applications.index') }}" class="btn btn-outline-primary w-100">View My Applications</a>
                         @elseif (! $subject->is_open)
                             <p class="text-muted mb-0">This subject is no longer accepting applications.</p>
+                        @elseif ($applicationsPaused)
+                            <p class="text-warning-emphasis mb-2">
+                                <i class="bi bi-pause-circle-fill me-1" aria-hidden="true"></i>
+                                Applications are temporarily paused.
+                            </p>
+                            <p class="small text-muted mb-0">You can review this subject, but you cannot apply until submissions resume.</p>
                         @elseif (! $profileComplete)
                             <p class="text-muted small mb-2">Complete your profile before applying.</p>
                             <a href="{{ route('candidate.applications.create', $subject) }}" class="btn btn-warning w-100 py-2">

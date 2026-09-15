@@ -22,9 +22,9 @@ Route::prefix('candidate')
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
             Route::get('/subjects/{subject}/apply', [ApplicationController::class, 'create'])
-                ->middleware('profile.complete')->name('applications.create');
+                ->middleware(['applications.accepting', 'profile.complete'])->name('applications.create');
             Route::post('/subjects/{subject}/apply', [ApplicationController::class, 'store'])
-                ->middleware('profile.complete')->name('applications.store');
+                ->middleware(['applications.accepting', 'profile.complete'])->name('applications.store');
 
             Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
             Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');

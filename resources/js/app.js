@@ -1,4 +1,6 @@
 import './bootstrap';
+import './recruitment-report';
+import './oral-exam-picks';
 import * as bootstrap from 'bootstrap';
 import htmx from 'htmx.org';
 

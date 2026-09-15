@@ -1,4 +1,9 @@
 <x-app-layout title="Professor Dashboard">
+    <div class="mb-4">
+        <a href="{{ route('professor.recruitment.index') }}" class="btn btn-primary">
+            <i class="bi bi-file-earmark-word me-2" aria-hidden="true"></i>PV de recrutement
+        </a>
+    </div>
     <div class="row g-3 mb-4">
         <div class="col-sm-6 col-lg-3">
             <x-stat-card label="My Subjects" :value="$overview['total_subjects']" icon="bi-journal-richtext" color="primary" />

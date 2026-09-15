@@ -1,4 +1,10 @@
 <nav class="nav flex-column gap-1">
+    <a class="nav-link {{ request()->routeIs('professor.recruitment.*') ? 'active' : '' }}" href="{{ route('professor.recruitment.index') }}">
+        <i class="bi bi-file-earmark-word me-2" aria-hidden="true"></i>PV de recrutement
+    </a>
+    <a class="nav-link {{ request()->routeIs('professor.oral-exam-picks.*') ? 'active' : '' }}" href="{{ route('professor.oral-exam-picks.index') }}">
+        <i class="bi bi-star me-2" aria-hidden="true"></i>Oral Exam Picks
+    </a>
     <a class="nav-link {{ request()->routeIs('professor.dashboard') ? 'active' : '' }}" href="{{ route('professor.dashboard') }}">
         <i class="bi bi-speedometer2 me-2"></i>Dashboard
     </a>

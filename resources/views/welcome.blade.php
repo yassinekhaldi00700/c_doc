@@ -52,9 +52,19 @@
     </header>
 
     <main class="container py-5">
+        @if ($applicationsPaused)
+            <div class="alert alert-warning d-flex align-items-start gap-2 mb-4" role="status">
+                <i class="bi bi-pause-circle-fill mt-1" aria-hidden="true"></i>
+                <div>
+                    <strong>Applications are temporarily paused.</strong>
+                    You may continue browsing open research subjects, but new applications cannot be submitted right now.
+                </div>
+            </div>
+        @endif
+
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div>
-                <h2 class="h3 fw-bold mb-1">List of Proposals currently open for applications</h2>
+                <h2 class="h3 fw-bold mb-1">Open Research Proposals</h2>
 
             </div>
             <a href="{{ route('candidate.subjects.index') }}" class="btn btn-outline-primary d-none d-md-inline-flex">View all</a>
@@ -100,7 +110,9 @@
                                             <i class="bi bi-person-badge me-1"></i>{{ $subject->professor->name }}
                                         </p>
                                         @guest
-                                            <a href="{{ route('login') }}" hx-boost="false" class="btn btn-outline-primary btn-sm mt-auto">Log in to Apply</a>
+                                            <a href="{{ route('login') }}" hx-boost="false" class="btn btn-outline-primary btn-sm mt-auto">
+                                                {{ $applicationsPaused ? 'Log in to View Details' : 'Log in to Apply' }}
+                                            </a>
                                         @else
                                             <a href="{{ route('candidate.subjects.show', $subject) }}" hx-boost="false" class="btn btn-outline-primary btn-sm mt-auto">View Details</a>
                                         @endguest

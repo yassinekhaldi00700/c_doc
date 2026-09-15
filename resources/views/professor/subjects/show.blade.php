@@ -9,6 +9,9 @@
             <h2 class="h4 fw-bold mb-0">{{ $subject->title }}</h2>
         </div>
         <div class="d-flex gap-2">
+            <a href="{{ route('professor.oral-exam-picks.edit', $subject) }}" class="btn btn-outline-success">
+                <i class="bi bi-star me-1"></i>Oral Exam Picks
+            </a>
             <a href="{{ route('professor.subjects.edit', $subject) }}" class="btn btn-outline-secondary">
                 <i class="bi bi-pencil me-1"></i>Edit
             </a>
@@ -67,7 +70,12 @@
                                 <tbody>
                                     @foreach ($applications as $application)
                                         <tr>
-                                            <td>{{ $application->fullName() }}</td>
+                                            <td>
+                                                {{ $application->fullName() }}
+                                                @if ($application->professor_favorited_at)
+                                                    <span class="badge bg-success-subtle text-success ms-1"><i class="bi bi-star-fill"></i> Picked</span>
+                                                @endif
+                                            </td>
                                             <td><x-status-badge :status="$application->status" /></td>
                                             <td class="text-muted small">{{ $application->submitted_at?->format('d M Y') }}</td>
                                             <td class="text-end">

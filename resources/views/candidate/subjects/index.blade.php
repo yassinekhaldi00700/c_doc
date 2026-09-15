@@ -1,4 +1,14 @@
 <x-app-layout title="Browse Research Subjects">
+    @if ($applicationsPaused)
+        <div class="alert alert-warning d-flex align-items-start gap-2" role="status">
+            <i class="bi bi-pause-circle-fill mt-1" aria-hidden="true"></i>
+            <div>
+                <strong>Applications are temporarily paused.</strong>
+                Open subjects remain available to browse, but applications cannot be submitted right now.
+            </div>
+        </div>
+    @endif
+
     <div class="card border-0 shadow-sm mb-4">
         <div class="card-body">
             <form method="GET" class="row g-2 align-items-end">

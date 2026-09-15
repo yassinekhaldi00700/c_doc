@@ -20,6 +20,8 @@ Route::prefix('admin')
         Route::resource('departments', DepartmentController::class)->except(['show']);
 
         Route::get('/subjects', [SubjectController::class, 'index'])->name('subjects.index');
+        Route::patch('/subjects/application-access', [SubjectController::class, 'toggleApplicationAccess'])
+            ->name('subjects.toggle-application-access');
         Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
         Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
         Route::get('/subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');

@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubjectRequest;
+use App\Models\AdmissionSetting;
 use App\Models\Department;
 use App\Models\ResearchSubject;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class SubjectController extends Controller
@@ -30,7 +32,31 @@ class SubjectController extends Controller
             'subjects' => $subjects,
             'departments' => Department::orderBy('name')->get(),
             'professors' => User::where('role', UserRole::Professor)->orderBy('name')->get(),
+            'applicationsPaused' => AdmissionSetting::applicationsArePaused(),
         ]);
+    }
+
+    public function toggleApplicationAccess(Request $request): RedirectResponse
+    {
+        $applicationsPaused = DB::transaction(function () use ($request): bool {
+            $setting = AdmissionSetting::query()->lockForUpdate()->firstOrCreate();
+            $paused = ! $setting->applications_paused;
+
+            $setting->update([
+                'applications_paused' => $paused,
+                'paused_at' => $paused ? now() : null,
+                'paused_by' => $paused ? $request->user()->id : null,
+            ]);
+
+            return $paused;
+        });
+
+        return back()->with(
+            'success',
+            $applicationsPaused
+                ? 'All new applications have been paused. Open subjects remain visible to candidates.'
+                : 'Applications have resumed. Candidates can apply to open subjects again.'
+        );
     }
 
     public function create(): View
@@ -67,7 +93,10 @@ class SubjectController extends Controller
     {
         return view('admin.subjects.show', [
             'subject' => $subject->load(['professor', 'department']),
-            'applications' => $subject->applications()->with('candidate')->latest()->paginate(10),
+            'applications' => $subject->applications()->with('candidate')
+                ->orderByDesc('professor_favorited_at')
+                ->latest()
+                ->paginate(10),
         ]);
     }
 

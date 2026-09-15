@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Candidate;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\AdmissionSetting;
 use App\Models\ResearchSubject;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class SubjectController extends Controller
         return view('candidate.subjects.index', [
             'subjects' => $subjects,
             'departments' => Department::orderBy('name')->get(),
+            'applicationsPaused' => AdmissionSetting::applicationsArePaused(),
         ]);
     }
 
@@ -38,6 +40,7 @@ class SubjectController extends Controller
             'subject' => $subject,
             'alreadyApplied' => $alreadyApplied,
             'profileComplete' => auth()->user()->profile?->isComplete() ?? false,
+            'applicationsPaused' => AdmissionSetting::applicationsArePaused(),
         ]);
     }
 }

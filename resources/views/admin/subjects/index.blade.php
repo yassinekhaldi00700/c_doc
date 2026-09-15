@@ -1,4 +1,32 @@
 <x-app-layout title="Research Subjects">
+    <div class="alert {{ $applicationsPaused ? 'alert-warning' : 'alert-success' }} d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 mb-4" role="status">
+        <div>
+            <h2 class="h6 fw-bold mb-1">
+                <i class="bi {{ $applicationsPaused ? 'bi-pause-circle-fill' : 'bi-play-circle-fill' }} me-1"></i>
+                Application submissions are {{ $applicationsPaused ? 'paused' : 'active' }}
+            </h2>
+            <p class="small mb-0">
+                @if ($applicationsPaused)
+                    Candidates can see open subjects, but they cannot apply until submissions are resumed.
+                @else
+                    Candidates can currently apply to any subject marked Open.
+                @endif
+            </p>
+        </div>
+        <form method="POST" action="{{ route('admin.subjects.toggle-application-access') }}" class="flex-shrink-0">
+            @csrf
+            @method('PATCH')
+            <button
+                type="submit"
+                class="btn {{ $applicationsPaused ? 'btn-success' : 'btn-warning' }}"
+                @unless ($applicationsPaused) onclick="return confirm('Pause all new applications? Open subjects will remain visible, but candidates will not be able to apply.')" @endunless
+            >
+                <i class="bi {{ $applicationsPaused ? 'bi-play-fill' : 'bi-pause-fill' }} me-1"></i>
+                {{ $applicationsPaused ? 'Resume applications' : 'Pause all applications' }}
+            </button>
+        </form>
+    </div>
+
     <div class="d-flex justify-content-end mb-3">
         <a href="{{ route('admin.subjects.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i> New Subject

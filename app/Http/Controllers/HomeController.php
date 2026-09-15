@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\AdmissionSetting;
 use App\Models\ResearchSubject;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -23,6 +24,7 @@ class HomeController extends Controller
             'subjects' => $subjects,
             'departments' => Department::orderBy('name')->get(),
             'totalOpenSubjects' => ResearchSubject::open()->count(),
+            'applicationsPaused' => AdmissionSetting::applicationsArePaused(),
         ]);
     }
 

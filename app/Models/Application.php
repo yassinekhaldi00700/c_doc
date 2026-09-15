@@ -20,6 +20,8 @@ class Application extends Model
         'reviewed_by',
         'reviewed_at',
         'review_comment',
+        'professor_favorited_at',
+        'professor_proposed_exam_at',
         'notification_sent_at',
         'notification_error',
         'oral_exam_at',
@@ -32,6 +34,8 @@ class Application extends Model
         return [
             'status' => ApplicationStatus::class,
             'reviewed_at' => 'datetime',
+            'professor_favorited_at' => 'datetime',
+            'professor_proposed_exam_at' => 'date',
             'notification_sent_at' => 'datetime',
             'oral_exam_at' => 'datetime',
             'program_start_at' => 'date',
