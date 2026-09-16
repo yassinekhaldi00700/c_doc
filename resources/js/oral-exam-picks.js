@@ -12,15 +12,31 @@ function initOralExamPicks() {
             checkboxes.forEach((box) => {
                 box.disabled = ! box.checked && checked >= max;
                 const dateInput = dateInputFor(box);
-                if (dateInput) {
-                    dateInput.disabled = ! box.checked;
-                    dateInput.required = box.checked;
-                }
+                if (dateInput) dateInput.required = box.checked;
             });
             if (counter) counter.textContent = `${checked} / ${max} selected`;
         };
 
         checkboxes.forEach((box) => box.addEventListener('change', sync));
+
+        // Date fields are always editable. Typing a date picks that candidate
+        // automatically, instead of forcing the checkbox first — as long as
+        // there's still room under the 5-candidate cap.
+        checkboxes.forEach((box) => {
+            const dateInput = dateInputFor(box);
+            if (! dateInput) return;
+            dateInput.addEventListener('input', () => {
+                if (! dateInput.value || box.checked) return;
+                const checked = checkboxes.filter((b) => b.checked).length;
+                if (checked >= max) {
+                    dateInput.value = '';
+                    return;
+                }
+                box.checked = true;
+                sync();
+            });
+        });
+
         sync();
     });
 }

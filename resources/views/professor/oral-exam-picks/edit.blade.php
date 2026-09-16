@@ -58,7 +58,7 @@
                                                 data-oral-exam-pick-date
                                                 min="{{ $minDate }}T00:00" max="{{ $maxDate }}T23:59"
                                                 value="{{ old('dates.'.$application->id, optional($application->professor_proposed_exam_at)->format('Y-m-d\TH:i')) }}"
-                                                @disabled(! $checked) @required($checked)>
+                                                @required($checked)>
                                             <x-input-error :messages="$errors->get('dates.'.$application->id)" />
                                         </td>
                                     </tr>
