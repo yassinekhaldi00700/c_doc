@@ -10,7 +10,7 @@
 
     <div class="alert alert-info" role="alert">
         <i class="bi bi-info-circle me-1"></i>
-        Choose up to 5 candidates you'd like to invite to the oral exam, propose a date between {{ \Carbon\Carbon::parse($minDate)->format('d/m/Y') }} and {{ \Carbon\Carbon::parse($maxDate)->format('d/m/Y') }} for each, then confirm your selection below. This is only a recommendation for the admin team — it does not change any application's status or send anything to candidates. The admin reviews your picks, can adjust the proposed date, and sends the actual oral exam invitations themselves.
+        Choose up to 5 candidates you'd like to invite to the oral exam, propose a date &amp; time between {{ \Carbon\Carbon::parse($minDate)->format('d/m/Y') }} and {{ \Carbon\Carbon::parse($maxDate)->format('d/m/Y') }} for each, then confirm your selection below. This is only a recommendation for the admin team — it does not change any application's status or send anything to candidates. The admin reviews your picks, can adjust the proposed date, and sends the actual oral exam invitations themselves.
     </div>
 
     @if ($errors->any())
@@ -34,7 +34,7 @@
                                     <th>Candidate</th>
                                     <th>Status</th>
                                     <th>Submitted</th>
-                                    <th>Proposed exam date</th>
+                                    <th>Proposed exam date &amp; time</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,11 +53,11 @@
                                         <td><x-status-badge :status="$application->status" /></td>
                                         <td class="text-muted small">{{ $application->submitted_at?->format('d M Y') }}</td>
                                         <td>
-                                            <input type="date" class="form-control form-control-sm" style="min-width: 10rem"
+                                            <input type="datetime-local" class="form-control form-control-sm" style="min-width: 12rem"
                                                 name="dates[{{ $application->id }}]"
                                                 data-oral-exam-pick-date
-                                                min="{{ $minDate }}" max="{{ $maxDate }}"
-                                                value="{{ old('dates.'.$application->id, optional($application->professor_proposed_exam_at)->format('Y-m-d')) }}"
+                                                min="{{ $minDate }}T00:00" max="{{ $maxDate }}T23:59"
+                                                value="{{ old('dates.'.$application->id, optional($application->professor_proposed_exam_at)->format('Y-m-d\TH:i')) }}"
                                                 @disabled(! $checked) @required($checked)>
                                             <x-input-error :messages="$errors->get('dates.'.$application->id)" />
                                         </td>

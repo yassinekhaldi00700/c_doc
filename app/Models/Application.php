@@ -35,7 +35,7 @@ class Application extends Model
             'status' => ApplicationStatus::class,
             'reviewed_at' => 'datetime',
             'professor_favorited_at' => 'datetime',
-            'professor_proposed_exam_at' => 'date',
+            'professor_proposed_exam_at' => 'datetime',
             'notification_sent_at' => 'datetime',
             'oral_exam_at' => 'datetime',
             'program_start_at' => 'date',

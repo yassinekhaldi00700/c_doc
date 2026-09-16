@@ -32,7 +32,7 @@ class OralExamPicksTest extends TestCase
     /** Builds a valid `dates` payload (within the allowed window) for the given application ids. */
     private function datesFor(iterable $ids): array
     {
-        return collect($ids)->mapWithKeys(fn ($id) => [$id => OralExamPicksRequest::MIN_DATE])->all();
+        return collect($ids)->mapWithKeys(fn ($id) => [$id => OralExamPicksRequest::MIN_DATE.'T09:00'])->all();
     }
 
     public function test_professor_reaches_a_subjects_picks_directly_from_the_index(): void
@@ -59,7 +59,7 @@ class OralExamPicksTest extends TestCase
         ])->assertRedirect()->assertSessionHasNoErrors();
 
         $this->assertSame(5, Application::whereIn('id', $firstPicks)->whereNotNull('professor_favorited_at')->count());
-        $this->assertSame(OralExamPicksRequest::MIN_DATE, Application::find($firstPicks[0])->professor_proposed_exam_at->format('Y-m-d'));
+        $this->assertSame(OralExamPicksRequest::MIN_DATE.'T09:00', Application::find($firstPicks[0])->professor_proposed_exam_at->format('Y-m-d\TH:i'));
         $this->assertSame(0, Application::where('id', $applications->last()->id)->whereNotNull('professor_favorited_at')->count());
 
         // Replacing the selection clears the previous picks, not just adds to them.
@@ -85,7 +85,7 @@ class OralExamPicksTest extends TestCase
         $this->assertSame(0, Application::whereNotNull('professor_favorited_at')->count());
     }
 
-    public function test_a_pick_needs_a_date_within_the_allowed_window(): void
+    public function test_a_pick_needs_a_date_and_time_within_the_allowed_window(): void
     {
         [$professor, $subject, $applications] = $this->fixture(1);
         $this->actingAs($professor);
@@ -94,14 +94,19 @@ class OralExamPicksTest extends TestCase
         $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id]])
             ->assertSessionHasErrors("dates.$id");
 
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-20']])
+        // Before the window, after the window, and the instant the window closes (exclusive).
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-20T23:59']])
             ->assertSessionHasErrors("dates.$id");
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-26']])
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-26T00:00']])
             ->assertSessionHasErrors("dates.$id");
 
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-23']])
+        // Any time on the last day is still valid — the window is inclusive of the whole day.
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-25T23:00']])
             ->assertSessionHasNoErrors();
-        $this->assertSame('2026-09-23', Application::find($id)->professor_proposed_exam_at->format('Y-m-d'));
+
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-23T14:30']])
+            ->assertSessionHasNoErrors();
+        $this->assertSame('2026-09-23T14:30', Application::find($id)->professor_proposed_exam_at->format('Y-m-d\TH:i'));
     }
 
     public function test_a_candidate_from_another_subject_cannot_be_picked(): void
@@ -141,7 +146,7 @@ class OralExamPicksTest extends TestCase
         $id = $applications->first()->id;
         $this->post(route('professor.oral-exam-picks.update', $subject), [
             'application_ids' => [$id],
-            'dates' => [$id => '2026-09-22'],
+            'dates' => [$id => '2026-09-22T15:30'],
         ]);
 
         $this->assertSame('pending', $applications->first()->fresh()->status->value);
@@ -155,6 +160,6 @@ class OralExamPicksTest extends TestCase
             ->get(route('admin.applications.show', $applications->first()))
             ->assertOk()
             ->assertSee('proposed', false)
-            ->assertSee('22 Sep 2026', false);
+            ->assertSee('22 Sep 2026, 15:30', false);
     }
 }

@@ -22,8 +22,8 @@
             <i class="bi bi-star-fill"></i>
             <span>
                 The supervising professor picked this candidate for the oral exam and proposed
-                <strong>{{ optional($application->professor_proposed_exam_at)->format('d M Y') }}</strong>.
-                This is only a recommendation — no invitation has been sent; the "Oral exam date & time" field below is pre-filled with that date, adjust it as needed and use the status controls to invite the candidate yourself.
+                <strong>{{ optional($application->professor_proposed_exam_at)->format('d M Y, H:i') }}</strong>.
+                This is only a recommendation — no invitation has been sent; the "Oral exam date & time" field below is pre-filled with that date and time, adjust it as needed and use the status controls to invite the candidate yourself.
             </span>
         </div>
     @endif
@@ -153,8 +153,8 @@
                             <x-input-error :messages="$errors->get('status')" />
                         </div>
 
-                        {{-- No official date set yet? Default to the professor's proposed date (at 09:00) so the admin only has to adjust it, not start blank. --}}
-                        @php($oralExamDateDefault = $application->oral_exam_at?->format('Y-m-d\TH:i') ?? $application->professor_proposed_exam_at?->format('Y-m-d\T09:00'))
+                        {{-- No official date set yet? Default to the professor's proposed date & time so the admin only has to adjust it, not start blank. --}}
+                        @php($oralExamDateDefault = $application->oral_exam_at?->format('Y-m-d\TH:i') ?? $application->professor_proposed_exam_at?->format('Y-m-d\TH:i'))
                         <div class="mb-3 {{ $selectedStatus === 'under_review' ? '' : 'd-none' }}" id="oral-exam-date-field">
                             <x-input-label for="oral_exam_date" value="Oral exam date & time" />
                             <x-text-input id="oral_exam_date" type="datetime-local" name="oral_exam_date"

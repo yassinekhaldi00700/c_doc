@@ -50,7 +50,7 @@ class OralExamPickController extends Controller
             foreach ($request->validated('application_ids', []) as $id) {
                 $subject->applications()->where('id', $id)->update([
                     'professor_favorited_at' => now(),
-                    'professor_proposed_exam_at' => $dates[$id],
+                    'professor_proposed_exam_at' => \Carbon\Carbon::createFromFormat(OralExamPicksRequest::DATETIME_FORMAT, $dates[$id]),
                 ]);
             }
         });

@@ -72,7 +72,7 @@
                                                 @if ($application->professor_favorited_at)
                                                     <br>
                                                     <span class="badge bg-success-subtle text-success mt-1">
-                                                        <i class="bi bi-star-fill"></i> Professor's pick — suggests {{ optional($application->professor_proposed_exam_at)->format('d M Y') }}
+                                                        <i class="bi bi-star-fill"></i> Professor's pick — suggests {{ optional($application->professor_proposed_exam_at)->format('d M Y, H:i') }}
                                                     </span>
                                                 @endif
                                             </td>

@@ -12,6 +12,9 @@ class OralExamPicksRequest extends FormRequest
 
     public const MAX_DATE = '2026-09-25';
 
+    /** The HTML `datetime-local` format the picks form submits proposed dates in. */
+    public const DATETIME_FORMAT = 'Y-m-d\TH:i';
+
     public function authorize(): bool
     {
         return $this->user()?->isProfessor()
@@ -28,10 +31,14 @@ class OralExamPicksRequest extends FormRequest
             'application_ids.*' => ['integer', Rule::exists('applications', 'id')->where('subject_id', $this->route('subject')->id)],
         ];
 
-        // Every picked candidate needs a proposed exam date within the window;
-        // dates submitted for candidates that aren't picked are simply ignored.
+        // Every picked candidate needs a proposed exam date & time within the
+        // window (inclusive of the whole last day); dates submitted for
+        // candidates that aren't picked are simply ignored.
         foreach ((array) $this->input('application_ids', []) as $id) {
-            $rules["dates.$id"] = ['required', 'date_format:Y-m-d', 'after_or_equal:'.self::MIN_DATE, 'before_or_equal:'.self::MAX_DATE];
+            $rules["dates.$id"] = [
+                'required', 'date_format:'.self::DATETIME_FORMAT,
+                'after_or_equal:'.self::MIN_DATE, 'before_or_equal:'.self::MAX_DATE.' 23:59:59',
+            ];
         }
 
         return $rules;
