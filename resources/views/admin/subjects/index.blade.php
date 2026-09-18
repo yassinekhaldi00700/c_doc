@@ -83,6 +83,7 @@
                             <th>Professor</th>
                             <th>Doctoral Program</th>
                             <th>Applicants</th>
+                            <th>Prof. Picks</th>
                             <th>Status</th>
                             <th></th>
                         </tr>
@@ -94,6 +95,15 @@
                                 <td>{{ $subject->professor->name }}</td>
                                 <td>{{ $subject->department->name }}</td>
                                 <td>{{ $subject->applications_count }}</td>
+                                <td>
+                                    @if ($subject->professor_picks_count > 0)
+                                        <span class="badge bg-success-subtle text-success" title="The professor picked {{ $subject->professor_picks_count }} candidate(s) for the oral exam">
+                                            <i class="bi bi-star-fill"></i> {{ $subject->professor_picks_count }}
+                                        </span>
+                                    @else
+                                        <span class="text-muted small">—</span>
+                                    @endif
+                                </td>
                                 <td>
                                     <span class="badge {{ $subject->is_open ? 'bg-success' : 'bg-danger' }}">
                                         {{ $subject->is_open ? 'Open' : 'Closed' }}

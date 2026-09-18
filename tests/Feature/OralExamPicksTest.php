@@ -157,6 +157,11 @@ class OralExamPicksTest extends TestCase
             ->assertOk()
             ->assertSee("Professor's pick", false);
         $this->actingAs($admin)
+            ->get(route('admin.subjects.index'))
+            ->assertOk()
+            ->assertSee($subject->title)
+            ->assertSee('bi-star-fill', false);
+        $this->actingAs($admin)
             ->get(route('admin.applications.show', $applications->first()))
             ->assertOk()
             ->assertSee('proposed', false)

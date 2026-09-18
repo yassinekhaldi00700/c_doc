@@ -20,6 +20,7 @@ class SubjectController extends Controller
     {
         $subjects = ResearchSubject::with(['professor', 'department'])
             ->withCount('applications')
+            ->withCount(['applications as professor_picks_count' => fn ($query) => $query->whereNotNull('professor_favorited_at')])
             ->when($request->filled('department_id'), fn ($query) => $query->where('department_id', $request->department_id))
             ->when($request->filled('professor_id'), fn ($query) => $query->where('professor_id', $request->professor_id))
             ->when($request->filled('search'), fn ($query) => $query->where('title', 'like', '%'.$request->search.'%'))
