@@ -8,9 +8,9 @@ use Illuminate\Validation\Rule;
 class OralExamPicksRequest extends FormRequest
 {
     /** The oral exam window this recruitment round is scheduled in. */
-    public const MIN_DATE = '2026-09-21';
+    public const MIN_DATE = '2026-09-29';
 
-    public const MAX_DATE = '2026-09-25';
+    public const MAX_DATE = '2026-10-04';
 
     /** The HTML `datetime-local` format the picks form submits proposed dates in. */
     public const DATETIME_FORMAT = 'Y-m-d\TH:i';
