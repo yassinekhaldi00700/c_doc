@@ -89,9 +89,9 @@ class RecruitmentReportTest extends TestCase
             $this->assertStringContainsString($committeeProfessor->name, $bodyNodes[34]->textContent);
             $this->assertStringContainsString('Membre Deux', $bodyNodes[35]->textContent);
             $this->assertStringContainsString('Membre Trois', $bodyNodes[36]->textContent);
-            $this->assertSame('Pr. '.$professor->name, $bodyNodes[67]->textContent);
-            $this->assertSame('Pr. Co-directeur', $bodyNodes[70]->textContent);
-            $this->assertSame('Pr. '.$committeeProfessor->name, $bodyNodes[73]->textContent);
+            $this->assertSame($professor->name, $bodyNodes[67]->textContent);
+            $this->assertSame('Co-directeur', $bodyNodes[70]->textContent);
+            $this->assertSame($committeeProfessor->name, $bodyNodes[73]->textContent);
             $original = new DOMDocument;
             $original->loadXML($template->getFromName('word/document.xml'));
             $originalXpath = new DOMXPath($original);

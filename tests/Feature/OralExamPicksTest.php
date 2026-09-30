@@ -91,22 +91,27 @@ class OralExamPicksTest extends TestCase
         $this->actingAs($professor);
         $id = $applications->first()->id;
 
+        $before = \Carbon\Carbon::parse(OralExamPicksRequest::MIN_DATE)->subDay()->format('Y-m-d').'T23:59';
+        $after = \Carbon\Carbon::parse(OralExamPicksRequest::MAX_DATE)->addDay()->format('Y-m-d').'T00:00';
+        $lastDay = OralExamPicksRequest::MAX_DATE.'T23:00';
+        $withinWindow = OralExamPicksRequest::MIN_DATE.'T14:30';
+
         $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id]])
             ->assertSessionHasErrors("dates.$id");
 
         // Before the window, after the window, and the instant the window closes (exclusive).
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-20T23:59']])
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => $before]])
             ->assertSessionHasErrors("dates.$id");
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-26T00:00']])
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => $after]])
             ->assertSessionHasErrors("dates.$id");
 
         // Any time on the last day is still valid — the window is inclusive of the whole day.
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-25T23:00']])
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => $lastDay]])
             ->assertSessionHasNoErrors();
 
-        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => '2026-09-23T14:30']])
+        $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id], 'dates' => [$id => $withinWindow]])
             ->assertSessionHasNoErrors();
-        $this->assertSame('2026-09-23T14:30', Application::find($id)->professor_proposed_exam_at->format('Y-m-d\TH:i'));
+        $this->assertSame($withinWindow, Application::find($id)->professor_proposed_exam_at->format('Y-m-d\TH:i'));
     }
 
     public function test_a_candidate_from_another_subject_cannot_be_picked(): void
@@ -144,9 +149,10 @@ class OralExamPicksTest extends TestCase
         [$professor, $subject, $applications] = $this->fixture(1);
         $this->actingAs($professor);
         $id = $applications->first()->id;
+        $proposedAt = OralExamPicksRequest::MIN_DATE.'T15:30';
         $this->post(route('professor.oral-exam-picks.update', $subject), [
             'application_ids' => [$id],
-            'dates' => [$id => '2026-09-22T15:30'],
+            'dates' => [$id => $proposedAt],
         ]);
 
         $this->assertSame('pending', $applications->first()->fresh()->status->value);
@@ -165,6 +171,6 @@ class OralExamPicksTest extends TestCase
             ->get(route('admin.applications.show', $applications->first()))
             ->assertOk()
             ->assertSee('proposed', false)
-            ->assertSee('22 Sep 2026, 15:30', false);
+            ->assertSee(\Carbon\Carbon::parse($proposedAt)->format('d M Y, H:i'), false);
     }
 }

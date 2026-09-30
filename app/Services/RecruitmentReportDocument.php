@@ -65,7 +65,7 @@ class RecruitmentReportDocument
                 }
             }
             foreach ([67, 70, 73, 76, 79] as $i => $index) {
-                $this->text($xpath, $nodes[$index], isset($panel[$i]) ? 'Pr. '.$panel[$i]['name'] : '');
+                $this->text($xpath, $nodes[$index], isset($panel[$i]) ? $panel[$i]['name'] : '');
             }
 
             $candidateRows = [];
@@ -128,7 +128,7 @@ class RecruitmentReportDocument
 
     private function member(array $member): string
     {
-        return 'Pr. '.$member['name'].(filled($member['institution'] ?? null) ? ', '.$member['institution'] : '').', e-mail : '.$member['email'];
+        return $member['name'].(filled($member['institution'] ?? null) ? ', '.$member['institution'] : '').', e-mail : '.$member['email'];
     }
 
     private function text(DOMXPath $xpath, DOMNode $node, string $value): void
