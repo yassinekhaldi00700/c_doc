@@ -27,7 +27,10 @@
         </form>
     </div>
 
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end gap-2 mb-3">
+        <a href="{{ route('admin.subjects.bulk-create') }}" class="btn btn-outline-primary">
+            <i class="bi bi-upload me-1"></i> Bulk Add Subjects
+        </a>
         <a href="{{ route('admin.subjects.create') }}" class="btn btn-primary">
             <i class="bi bi-plus-circle me-1"></i> New Subject
         </a>

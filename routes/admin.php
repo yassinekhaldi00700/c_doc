@@ -16,6 +16,8 @@ Route::prefix('admin')
 
         Route::resource('users', UserController::class)->except(['show']);
         Route::patch('/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggle-active');
+        Route::get('/users/bulk-create', [UserController::class, 'bulkCreate'])->name('users.bulk-create');
+        Route::post('/users/bulk-create', [UserController::class, 'bulkStore'])->name('users.bulk-store');
 
         Route::resource('departments', DepartmentController::class)->except(['show']);
 
@@ -24,6 +26,8 @@ Route::prefix('admin')
             ->name('subjects.toggle-application-access');
         Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');
         Route::post('/subjects', [SubjectController::class, 'store'])->name('subjects.store');
+        Route::get('/subjects/bulk-create', [SubjectController::class, 'bulkCreate'])->name('subjects.bulk-create');
+        Route::post('/subjects/bulk-create', [SubjectController::class, 'bulkStore'])->name('subjects.bulk-store');
         Route::get('/subjects/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
         Route::get('/subjects/{subject}/edit', [SubjectController::class, 'edit'])->name('subjects.edit');
         Route::put('/subjects/{subject}', [SubjectController::class, 'update'])->name('subjects.update');

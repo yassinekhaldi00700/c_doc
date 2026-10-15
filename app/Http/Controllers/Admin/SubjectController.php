@@ -4,18 +4,23 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BulkSubjectImportRequest;
 use App\Http\Requests\SubjectRequest;
 use App\Models\AdmissionSetting;
 use App\Models\Department;
 use App\Models\ResearchSubject;
 use App\Models\User;
+use App\Services\CsvReader;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class SubjectController extends Controller
 {
+    private const PENDING_DESCRIPTION = 'Full description pending — to be completed by the supervising professor.';
+
     public function index(Request $request): View
     {
         $subjects = ResearchSubject::with(['professor', 'department'])
@@ -82,12 +87,77 @@ class SubjectController extends Controller
             'professor_id' => $request->validated('professor_id'),
             'department_id' => $request->validated('department_id'),
             'title' => $request->validated('title'),
-            'description' => 'Full description pending — to be completed by the supervising professor.',
+            'description' => self::PENDING_DESCRIPTION,
             'is_open' => false,
         ]);
 
         return redirect()->route('admin.subjects.show', $subject)
             ->with('success', 'Research subject created. The professor can now complete its details.');
+    }
+
+    public function bulkCreate(): View
+    {
+        $this->authorize('create', ResearchSubject::class);
+
+        return view('admin.subjects.bulk-create');
+    }
+
+    /**
+     * Same minimal philosophy as store(): only who/what/where. The
+     * professor is matched by email (the CSV's "association"), the
+     * doctoral program by its department code.
+     */
+    public function bulkStore(BulkSubjectImportRequest $request): RedirectResponse
+    {
+        $this->authorize('create', ResearchSubject::class);
+
+        $rows = CsvReader::rows($request->file('file')->getRealPath());
+
+        $created = 0;
+        $errors = [];
+
+        foreach ($rows as $i => $row) {
+            $line = $i + 2; // 1 = header
+
+            $validator = Validator::make($row, [
+                'title' => ['required', 'string', 'max:255'],
+                'professor_email' => ['required', 'email'],
+                'doctoral_program' => ['required', 'string'],
+            ]);
+
+            if ($validator->fails()) {
+                $errors[] = "Line $line: ".implode(' ', $validator->errors()->all());
+
+                continue;
+            }
+
+            $professor = User::where('email', $row['professor_email'])->where('role', UserRole::Professor)->first();
+            if (! $professor) {
+                $errors[] = "Line $line: no professor account found for \"{$row['professor_email']}\".";
+
+                continue;
+            }
+
+            $department = Department::where('code', $row['doctoral_program'])->first();
+            if (! $department) {
+                $errors[] = "Line $line: doctoral program \"{$row['doctoral_program']}\" not found.";
+
+                continue;
+            }
+
+            ResearchSubject::create([
+                'professor_id' => $professor->id,
+                'department_id' => $department->id,
+                'title' => $row['title'],
+                'description' => self::PENDING_DESCRIPTION,
+                'is_open' => false,
+            ]);
+            $created++;
+        }
+
+        return redirect()->route('admin.subjects.index')
+            ->with($created > 0 ? 'success' : 'error', $created.' research subject(s) created.'.($errors ? ' '.count($errors).' row(s) skipped.' : ''))
+            ->with('bulk_import_errors', $errors);
     }
 
     public function show(ResearchSubject $subject): View

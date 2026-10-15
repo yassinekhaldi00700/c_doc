@@ -35,9 +35,14 @@
                 <button type="submit" class="btn btn-primary w-100"><i class="bi bi-funnel me-1"></i>Filter</button>
             </div>
         </form>
-        <a href="{{ route('admin.users.create') }}" class="btn btn-success">
-            <i class="bi bi-person-plus me-1"></i> New User
-        </a>
+        <div class="d-flex gap-2">
+            <a href="{{ route('admin.users.bulk-create') }}" class="btn btn-outline-primary">
+                <i class="bi bi-upload me-1"></i> Bulk Add Professors
+            </a>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-success">
+                <i class="bi bi-person-plus me-1"></i> New User
+            </a>
+        </div>
     </div>
 
     <div class="card border-0 shadow-sm">

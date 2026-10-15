@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\BulkProfessorImportRequest;
 use App\Http\Requests\Admin\UserRequest;
 use App\Models\Department;
 use App\Models\User;
+use App\Services\CsvReader;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -49,6 +52,64 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('admin.users.index')->with('success', 'User account created successfully.');
+    }
+
+    public function bulkCreate(): View
+    {
+        return view('admin.users.bulk-create');
+    }
+
+    /**
+     * Every professor created in one batch shares the password typed on this
+     * form (e.g. a temporary one like "test tets") — they're nudged to pick
+     * their own via needsPasswordChange() the same way an admin-reset
+     * password already does, since password_changed_at is left unset.
+     */
+    public function bulkStore(BulkProfessorImportRequest $request): RedirectResponse
+    {
+        $rows = CsvReader::rows($request->file('file')->getRealPath());
+        $password = Hash::make($request->validated('password'));
+
+        $created = 0;
+        $errors = [];
+
+        foreach ($rows as $i => $row) {
+            $line = $i + 2; // 1 = header
+
+            $validator = Validator::make($row, [
+                'name' => ['required', 'string', 'max:150'],
+                'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+                'doctoral_program' => ['required', 'string'],
+            ]);
+
+            if ($validator->fails()) {
+                $errors[] = "Line $line: ".implode(' ', $validator->errors()->all());
+
+                continue;
+            }
+
+            $department = Department::where('code', $row['doctoral_program'])->first();
+            if (! $department) {
+                $errors[] = "Line $line: doctoral program \"{$row['doctoral_program']}\" not found.";
+
+                continue;
+            }
+
+            User::create([
+                'name' => $row['name'],
+                'email' => $row['email'],
+                'password' => $password,
+                'role' => UserRole::Professor,
+                'department_id' => $department->id,
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]);
+            $created++;
+        }
+
+        return redirect()->route('admin.users.index')
+            ->with($created > 0 ? 'success' : 'error', $created.' professor account(s) created.'.($errors ? ' '.count($errors).' row(s) skipped.' : ''))
+            ->with('bulk_import_errors', $errors);
     }
 
     public function edit(User $user): View
