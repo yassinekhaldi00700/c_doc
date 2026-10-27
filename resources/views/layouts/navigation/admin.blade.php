@@ -17,6 +17,9 @@
     <a class="nav-link {{ request()->routeIs('admin.feedback.*') ? 'active' : '' }}" href="{{ route('admin.feedback.index') }}">
         <i class="bi bi-inboxes me-2"></i>Feedback Inbox
     </a>
+    <a class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.edit') }}">
+        <i class="bi bi-calendar-event me-2"></i>Application Deadline
+    </a>
     <a class="nav-link {{ request()->routeIs('feedback.*') ? 'active' : '' }}" href="{{ route('feedback.index') }}">
         <i class="bi bi-chat-square-text me-2"></i>Feedback
     </a>

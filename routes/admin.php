@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\FeedbackController;
+use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +41,7 @@ Route::prefix('admin')
         Route::post('/applications/{application}/resend-notification', [ApplicationController::class, 'resendNotification'])->name('applications.resend-notification');
 
         Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
+
+        Route::get('/settings', [SettingsController::class, 'edit'])->name('settings.edit');
+        Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
     });
