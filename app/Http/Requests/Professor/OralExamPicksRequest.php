@@ -2,16 +2,12 @@
 
 namespace App\Http\Requests\Professor;
 
+use App\Support\SiteSettings;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
 class OralExamPicksRequest extends FormRequest
 {
-    /** The oral exam window this recruitment round is scheduled in. */
-    public const MIN_DATE = '2026-09-29';
-
-    public const MAX_DATE = '2026-10-04';
-
     /** The HTML `datetime-local` format the picks form submits proposed dates in. */
     public const DATETIME_FORMAT = 'Y-m-d\TH:i';
 
@@ -37,7 +33,7 @@ class OralExamPicksRequest extends FormRequest
         foreach ((array) $this->input('application_ids', []) as $id) {
             $rules["dates.$id"] = [
                 'required', 'date_format:'.self::DATETIME_FORMAT,
-                'after_or_equal:'.self::MIN_DATE, 'before_or_equal:'.self::MAX_DATE.' 23:59:59',
+                'after_or_equal:'.SiteSettings::oralExamMinDate(), 'before_or_equal:'.SiteSettings::oralExamMaxDate().' 23:59:59',
             ];
         }
 
@@ -49,13 +45,15 @@ class OralExamPicksRequest extends FormRequest
      */
     public function messages(): array
     {
+        $outsideWindow = 'The proposed exam date must be between '.SiteSettings::oralExamMinDate().' and '.SiteSettings::oralExamMaxDate().'.';
+
         return [
             'application_ids.max' => 'You can propose at most 5 candidates for the oral exam.',
             'application_ids.*.exists' => 'A selected candidate did not apply to this subject.',
             'dates.*.required' => 'Pick a proposed exam date for every candidate you select.',
             'dates.*.date_format' => 'The proposed exam date is not valid.',
-            'dates.*.after_or_equal' => 'The proposed exam date must be between '.self::MIN_DATE.' and '.self::MAX_DATE.'.',
-            'dates.*.before_or_equal' => 'The proposed exam date must be between '.self::MIN_DATE.' and '.self::MAX_DATE.'.',
+            'dates.*.after_or_equal' => $outsideWindow,
+            'dates.*.before_or_equal' => $outsideWindow,
         ];
     }
 }

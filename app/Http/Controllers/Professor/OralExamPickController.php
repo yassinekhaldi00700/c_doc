@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Professor;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Professor\OralExamPicksRequest;
 use App\Models\ResearchSubject;
+use App\Support\SiteSettings;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,8 +38,8 @@ class OralExamPickController extends Controller
         return view('professor.oral-exam-picks.edit', [
             'subject' => $subject,
             'applications' => $subject->applications()->with('candidate.profile')->orderBy('id')->get(),
-            'minDate' => OralExamPicksRequest::MIN_DATE,
-            'maxDate' => OralExamPicksRequest::MAX_DATE,
+            'minDate' => SiteSettings::oralExamMinDate(),
+            'maxDate' => SiteSettings::oralExamMaxDate(),
         ]);
     }
 

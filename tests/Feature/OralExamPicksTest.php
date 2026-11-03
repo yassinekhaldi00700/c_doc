@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Http\Requests\Professor\OralExamPicksRequest;
 use App\Models\Application;
 use App\Models\Department;
 use App\Models\ResearchSubject;
 use App\Models\User;
+use App\Support\SiteSettings;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,7 +32,7 @@ class OralExamPicksTest extends TestCase
     /** Builds a valid `dates` payload (within the allowed window) for the given application ids. */
     private function datesFor(iterable $ids): array
     {
-        return collect($ids)->mapWithKeys(fn ($id) => [$id => OralExamPicksRequest::MIN_DATE.'T09:00'])->all();
+        return collect($ids)->mapWithKeys(fn ($id) => [$id => SiteSettings::oralExamMinDate().'T09:00'])->all();
     }
 
     public function test_professor_reaches_a_subjects_picks_directly_from_the_index(): void
@@ -59,7 +59,7 @@ class OralExamPicksTest extends TestCase
         ])->assertRedirect()->assertSessionHasNoErrors();
 
         $this->assertSame(5, Application::whereIn('id', $firstPicks)->whereNotNull('professor_favorited_at')->count());
-        $this->assertSame(OralExamPicksRequest::MIN_DATE.'T09:00', Application::find($firstPicks[0])->professor_proposed_exam_at->format('Y-m-d\TH:i'));
+        $this->assertSame(SiteSettings::oralExamMinDate().'T09:00', Application::find($firstPicks[0])->professor_proposed_exam_at->format('Y-m-d\TH:i'));
         $this->assertSame(0, Application::where('id', $applications->last()->id)->whereNotNull('professor_favorited_at')->count());
 
         // Replacing the selection clears the previous picks, not just adds to them.
@@ -91,10 +91,10 @@ class OralExamPicksTest extends TestCase
         $this->actingAs($professor);
         $id = $applications->first()->id;
 
-        $before = \Carbon\Carbon::parse(OralExamPicksRequest::MIN_DATE)->subDay()->format('Y-m-d').'T23:59';
-        $after = \Carbon\Carbon::parse(OralExamPicksRequest::MAX_DATE)->addDay()->format('Y-m-d').'T00:00';
-        $lastDay = OralExamPicksRequest::MAX_DATE.'T23:00';
-        $withinWindow = OralExamPicksRequest::MIN_DATE.'T14:30';
+        $before = \Carbon\Carbon::parse(SiteSettings::oralExamMinDate())->subDay()->format('Y-m-d').'T23:59';
+        $after = \Carbon\Carbon::parse(SiteSettings::oralExamMaxDate())->addDay()->format('Y-m-d').'T00:00';
+        $lastDay = SiteSettings::oralExamMaxDate().'T23:00';
+        $withinWindow = SiteSettings::oralExamMinDate().'T14:30';
 
         $this->post(route('professor.oral-exam-picks.update', $subject), ['application_ids' => [$id]])
             ->assertSessionHasErrors("dates.$id");
@@ -149,7 +149,7 @@ class OralExamPicksTest extends TestCase
         [$professor, $subject, $applications] = $this->fixture(1);
         $this->actingAs($professor);
         $id = $applications->first()->id;
-        $proposedAt = OralExamPicksRequest::MIN_DATE.'T15:30';
+        $proposedAt = SiteSettings::oralExamMinDate().'T15:30';
         $this->post(route('professor.oral-exam-picks.update', $subject), [
             'application_ids' => [$id],
             'dates' => [$id => $proposedAt],
